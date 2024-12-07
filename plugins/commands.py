@@ -48,7 +48,7 @@ async def accept(client, message):
     else:
         return await message.reply("**Message Not Forwarded From Channel Or Group.**")
     msg = await message.reply("**Accepting All Join Request..... Wait Till It Completd.**")
-    kk = acc.approve_all_chat_join_requests(chat_id)
+    kk = await acc.approve_all_chat_join_requests(chat_id)
     if kk == True:
         await msg.edit("**Successfully Accepted All Join Requests.**")
     else:
