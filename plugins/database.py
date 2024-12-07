@@ -12,8 +12,7 @@ class Database:
         return dict(
             id = id,
             name = name,
-            session = None,
-            logged_in = False
+            session = None
         )
     
     async def add_user(self, id, name):
@@ -40,12 +39,5 @@ class Database:
     async def get_session(self, id):
         user = await self.col.find_one({'id': int(id)})
         return user.get('session', None)
-
-    async def set_logged(self, id, logged):
-        await self.col.update_one({'id': int(id)}, {'$set': {'logged_in': logged}})
-
-    async def get_logged(self, id):
-        user = await self.col.find_one({'id': int(id)})
-        return user.get('logged_in', None)
 
 db = Database(DB_URI, DB_NAME)
