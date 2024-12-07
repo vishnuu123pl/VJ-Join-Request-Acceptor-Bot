@@ -75,7 +75,7 @@ async def main(bot: Client, message: Message):
         return await message.reply('<b>invalid session sring</b>')
     try:
         user_data = await db.get_session(message.from_user.id)
-        if user_data is not None:
+        if user_data is None:
             uclient = Client(":memory:", session_string=string_session, api_id=API_ID, api_hash=API_HASH)
             await uclient.connect()
             await db.set_session(message.from_user.id, session=string_session)
