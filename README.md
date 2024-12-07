@@ -1,6 +1,6 @@
-# VJ-ChatGPT-Bot
+# VJ Join Request Acceptor Bot
 
-**A ChatGPT Telegram Bot. Model - GPT 3.5 Turbo**
+**This Bot Can Accept All Old Pending Join Requests Of Channel And Group**
 
 #### Environment Variables
 
@@ -9,8 +9,7 @@
 - `BOT_TOKEN` : Get From [BotFather](https://telegram.me/BotFather)
 - `DB_URI` : Mongodb Database Url [Tutorial Watch Here](https://youtu.be/I36_OTWvT2w)
 - `ADMINS` : It mean Admin/Owner Id For Broadcasting Message.
-- `LOG_CHANNEL` : Log channel id start with -100xxxxxx
-- `OPENAI_API` : Get it from here [Generate Api Here](https://platform.openai.com/account/api-keys)</b>
+- `LOG_CHANNEL` : Log channel id start with -100xxxxxx</b>
 
 #### Commands To Use Bot
 - <b>`/start` : check bot is alive or not, know about bot
@@ -22,6 +21,4 @@
 
 ## Support Group [VJ Support](https://telegram.me/vj_bot_disscussion)
 
-## Contact Owner [Tech VJ](https://telegram.me/kingvj01)
-
-# Credit - [Tech VJ](https://telegram.me/kingvj01)
+## Credit - [Tech VJ](https://youtube.com/@Tech_VJ)
