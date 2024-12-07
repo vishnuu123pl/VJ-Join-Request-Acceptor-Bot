@@ -15,36 +15,24 @@ from pyrogram.errors import (
     SessionPasswordNeeded,
     PasswordHashInvalid
 )
-from TechVJ.strings import strings
 from config import API_ID, API_HASH
-from database.db import database
+from plugins.database import db
 
 SESSION_STRING_SIZE = 351
 
-def get(obj, key, default=None):
-    try:
-        return obj[key]
-    except:
-        return default
-
 @Client.on_message(filters.private & ~filters.forwarded & filters.command(["logout"]))
-async def logout(_, msg):
-    user_data = database.find_one({"chat_id": msg.chat.id})
-    if user_data is None or not user_data.get('session'):
+async def logout(client, message):
+    user_data = await db.get_session(message.from_user.id)  
+    if user_data is None:
         return 
-    data = {
-        'session': None,
-        'logged_in': False
-    }
-    database.update_one({'_id': user_data['_id']}, {'$set': data})
-    await msg.reply("**Logout Successfully** ♦")
+    await db.set_session(message.from_user.id, session=None)  
+    await message.reply("**Logout Successfully** ♦")
 
 @Client.on_message(filters.private & ~filters.forwarded & filters.command(["login"]))
 async def main(bot: Client, message: Message):
-    database.insert_one({"chat_id": message.from_user.id})
-    user_data = database.find_one({"chat_id": message.from_user.id})
-    if get(user_data, 'logged_in', False):
-        await message.reply(strings['already_logged_in'])
+    user_data = await db.get_session(message.from_user.id)
+    if user_data is not None:
+        await message.reply("**Your Are Already Logged In. First /logout Your Old Session. Then Do Login.**")
         return 
     user_id = int(message.from_user.id)
     phone_number_msg = await bot.ask(chat_id=user_id, text="<b>Please send your phone number which includes country code</b>\n<b>Example:</b> <code>+13124562345, +9171828181889</code>")
@@ -86,20 +74,14 @@ async def main(bot: Client, message: Message):
     if len(string_session) < SESSION_STRING_SIZE:
         return await message.reply('<b>invalid session sring</b>')
     try:
-        user_data = database.find_one({"chat_id": message.from_user.id})
+        user_data = await db.get_session(message.from_user.id)
         if user_data is not None:
-            data = {
-                'session': string_session,
-                'logged_in': True
-            }
-
-            uclient = Client(":memory:", session_string=data['session'], api_id=API_ID, api_hash=API_HASH)
+            uclient = Client(":memory:", session_string=string_session, api_id=API_ID, api_hash=API_HASH)
             await uclient.connect()
-
-            database.update_one({'_id': user_data['_id']}, {'$set': data})
+            await db.set_session(message.from_user.id, session=string_session)
     except Exception as e:
         return await message.reply_text(f"<b>ERROR IN LOGIN:</b> `{e}`")
-    await bot.send_message(message.from_user.id, "<b>Account Login Successfully.\n\nIf You Get Any Error Related To AUTH KEY Then /logout and /login again</b>")
+    await bot.send_message(message.from_user.id, "<b>Account Login Successfully.\n\nIf You Get Any Error Related To AUTH KEY Then /logout first and /login again</b>")
 
 
 # Don't Remove Credit Tg - @VJ_Botz
