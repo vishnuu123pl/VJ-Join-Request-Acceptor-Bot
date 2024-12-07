@@ -11,7 +11,9 @@ class Database:
     def new_user(self, id, name):
         return dict(
             id = id,
-            name = name
+            name = name,
+            session = None,
+            logged_in = False
         )
     
     async def add_user(self, id, name):
@@ -31,5 +33,19 @@ class Database:
 
     async def delete_user(self, user_id):
         await self.col.delete_many({'id': int(user_id)})
+
+    async def set_session(self, id, session):
+        await self.col.update_one({'id': int(id)}, {'$set': {'session': session}})
+
+    async def get_session(self, id):
+        user = await self.col.find_one({'id': int(id)})
+        return user.get('session', None)
+
+    async def set_logged(self, id, logged):
+        await self.col.update_one({'id': int(id)}, {'$set': {'logged_in': logged}})
+
+    async def get_logged(self, id):
+        user = await self.col.find_one({'id': int(id)})
+        return user.get('logged_in', None)
 
 db = Database(DB_URI, DB_NAME)
