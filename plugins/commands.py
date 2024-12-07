@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from config import LOG_CHANNEL
 from plugins.database import db
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -26,4 +26,11 @@ async def start_message(c,m):
             ]]
         )
     )
-  
+
+@Client.on_message(filters.command('accept') & filters.private)
+async def accept(client, message):
+    vj = await client.ask(message.chat.id, "**Now Forward A Message From Your Channel Or Group With Forward Tag\n\nMake Sure Your Logged In Account Is Admin In That Channel Or Group With Full Rights.**")
+    if vj.forward_from_chat and not vj.forward_from_chat.type in [enums.ChatType.PRIVATE, enums.ChatType.BOT]:
+        chat_id = vj.forward_from_chat.id
+    else:
+        return await message.reply("**Message Not Forwarded From Channel Or Group.**")
