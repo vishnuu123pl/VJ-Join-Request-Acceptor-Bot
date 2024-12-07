@@ -34,7 +34,7 @@ async def accept(client, message):
         await message.reply("**For Accepte Pending Request You Have To /login First.**")
         return
     try:
-        acc = Client("saverestricted", session_string=user_data, api_hash=API_HASH, api_id=API_ID)
+        acc = Client("joinrequest", session_string=user_data, api_hash=API_HASH, api_id=API_ID)
         await acc.connect()
     except:
         return await message.reply("**Your Login Session Expired. So /logout First Then Login Again By - /login**")
