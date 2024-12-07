@@ -6,4 +6,4 @@ BOT_TOKEN = environ.get("BOT_TOKEN", "6627318053:AAHsVWm9XY3jU0XeAfWoFB_eKOasyzF
 LOG_CHANNEL = int(environ.get("LOG_CHANNEL", "-1002131110143"))
 ADMINS = int(environ.get("ADMINS", "6073523936"))
 DB_URI = environ.get("DB_URI", "mongodb+srv://mihaja5084:yeIh95RrMkRNZ3It@cluster0.6voc3fm.mongodb.net/?retryWrites=true&w=majority")
-DB_NAME = environ.get("DB_NAME", "vjjoinrequestbot")
+DB_NAME = environ.get("DB_NAME", "vjjoinrequetbot")
