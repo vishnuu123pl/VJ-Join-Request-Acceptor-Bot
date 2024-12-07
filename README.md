@@ -13,6 +13,9 @@
 
 #### Commands To Use Bot
 - <b>`/start` : check bot is alive or not, know about bot
+- `/accept` : accept all pending request form channel or group.
+- `/login` : login your telegram account for string session
+- `/logout` : logout your telegram account 
 - `/broadcast` : reply this command to your broadcast message in bot.</b>
 
 ## How To Make Your Own [Video Tutorial](https://youtube.com/@Tech_VJ)
