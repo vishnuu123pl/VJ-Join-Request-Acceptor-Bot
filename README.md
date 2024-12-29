@@ -2,6 +2,8 @@
 
 **This Bot Can Accept All Old Pending Join Requests Of Channel And Group**
 
+**For New Join Request Use This Repo [Click Here](https://github.com/VJBots/VJ-Auto-Approval-Bot)**
+
 #### Environment Variables
 
 - <b>`API_ID` : Get From [my.telegram.org](https://my.telegram.org)
