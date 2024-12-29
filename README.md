@@ -4,6 +4,8 @@
 
 **For New Join Request Use This Repo [Click Here](https://github.com/VJBots/VJ-Auto-Approval-Bot)**
 
+## How To Deploy [Video Tutorial](https://youtu.be/2Unf-cLbJLY)
+
 #### Environment Variables
 
 - <b>`API_ID` : Get From [my.telegram.org](https://my.telegram.org)
@@ -19,8 +21,6 @@
 - `/login` : login your telegram account for string session
 - `/logout` : logout your telegram account 
 - `/broadcast` : reply this command to your broadcast message in bot.</b>
-
-## How To Make Your Own [Video Tutorial](https://youtube.com/@Tech_VJ)
 
 ## Update Channel [VJ Botz](https://telegram.me/vj_botz)
 
