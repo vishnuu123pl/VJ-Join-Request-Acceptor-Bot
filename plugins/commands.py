@@ -50,7 +50,7 @@ async def accept(client, message):
     msg = await message.reply("**Accepting all join requests... Please wait until it's completed.**")
     try:
         while True:
-            success = await client.approve_all_chat_join_requests(chat_id)
+            success = await acc.approve_all_chat_join_requests(chat_id)
             await asyncio.sleep(1)
             if not success:
                 break
