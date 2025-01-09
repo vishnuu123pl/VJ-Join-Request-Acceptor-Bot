@@ -47,13 +47,17 @@ async def accept(client, message):
             await message.reply("**Error - Make Sure Your Logged In Account Is Admin In This Channel Or Group With Rights.**")
     else:
         return await message.reply("**Message Not Forwarded From Channel Or Group.**")
-    msg = await message.reply("**Accepting All Join Request..... Wait Till It Completd.**")
-    kk = await acc.approve_all_chat_join_requests(chat_id)
-    if kk == True:
-        await msg.edit("**Successfully Accepted All Join Requests.**")
-    else:
-        await msg.edit("**Process Cancelled Because Something Went Wrong.**")
-
+    msg = await message.reply("**Accepting all join requests... Please wait until it's completed.**")
+    try:
+        while True:
+            success = await client.approve_all_chat_join_requests(chat_id)
+            await asyncio.sleep(1)
+            if not success:
+                break
+        await msg.edit("**Successfully accepted all join requests.**")
+    except Exception as e:
+        await msg.edit(f"**An error occurred:** {str(e)}")
+        
 @Client.on_chat_join_request(filters.group | filters.channel)
 async def approve_new(client, m):
     if NEW_REQ_MODE == False:
