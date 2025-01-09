@@ -43,7 +43,7 @@ async def accept(client, message):
     if vj.forward_from_chat and not vj.forward_from_chat.type in [enums.ChatType.PRIVATE, enums.ChatType.BOT]:
         chat_id = vj.forward_from_chat.id
         try:
-            await acc.get_chat(chat_id)
+            info = await acc.get_chat(chat_id)
         except:
             await message.reply("**Error - Make Sure Your Logged In Account Is Admin In This Channel Or Group With Rights.**")
     else:
@@ -51,11 +51,11 @@ async def accept(client, message):
     msg = await message.reply("**Accepting all join requests... Please wait until it's completed.**")
     try:
         while True:
-            await acc.approve_all_chat_join_requests(chat_id)
-            await asyncio.sleep(1)
-            success = await acc.get_chat_join_requests(chat_id)
-            if not success:
-                break
+            async for request in acc.get_chat_join_requests(chat_id):
+                await client.approve_chat_join_request(chat_id, request.from_user.id)
+                await asyncio.sleep(1)
+                await client.send_message(request.from_user.id, "**Hello {}!\nWelcome To {}\n\n__Powerd By : @VJ_Botz __**".format(request.from_user.mention, info.title))
+            break
         await msg.edit("**Successfully accepted all join requests.**")
     except Exception as e:
         await msg.edit(f"**An error occurred:** {str(e)}")
