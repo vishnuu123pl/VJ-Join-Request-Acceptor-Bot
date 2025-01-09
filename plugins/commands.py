@@ -52,7 +52,7 @@ async def accept(client, message):
     try:
         while True:
             async for request in acc.get_chat_join_requests(chat_id):
-                await client.approve_chat_join_request(chat_id, request.user.id)
+                await acc.approve_chat_join_request(chat_id, request.user.id)
                 await asyncio.sleep(1)
                 try:
                     await client.send_message(request.user.id, "**Hello {}!\nWelcome To {}\n\n__Powered By : @VJ_Botz __**".format(request.user.mention, info.title))
