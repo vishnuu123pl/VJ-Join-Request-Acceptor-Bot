@@ -50,6 +50,7 @@ async def accept(client, message):
             await show.edit("**Error - Make Sure Your Logged In Account Is Admin In This Channel Or Group With Rights.**")
     else:
         return await message.reply("**Message Not Forwarded From Channel Or Group.**")
+    await vj.delete()
     msg = await show.edit("**Accepting all join requests... Please wait until it's completed.**")
     try:
         while True:
