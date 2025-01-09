@@ -51,14 +51,11 @@ async def accept(client, message):
     msg = await message.reply("**Accepting all join requests... Please wait until it's completed.**")
     try:
         while True:
-            async for request in acc.get_chat_join_requests(chat_id):
-                await acc.approve_chat_join_request(chat_id, request.user.id)
-                await asyncio.sleep(1)
-                try:
-                    await client.send_message(request.user.id, "**Hello {}!\nWelcome To {}\n\n__Powered By : @VJ_Botz __**".format(request.user.mention, info.title))
-                except:
-                    pass
-            break
+            await acc.approve_all_chat_join_requests(chat_id)
+            await asyncio.sleep(1)
+            join_requests = [request async for request in client.get_chat_join_requests(chat_id)]
+            if not join_requests:
+                break
         await msg.edit("**Successfully accepted all join requests.**")
     except Exception as e:
         await msg.edit(f"**An error occurred:** {str(e)}")
