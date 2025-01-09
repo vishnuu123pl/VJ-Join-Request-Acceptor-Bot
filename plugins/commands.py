@@ -54,7 +54,10 @@ async def accept(client, message):
             async for request in acc.get_chat_join_requests(chat_id):
                 await client.approve_chat_join_request(chat_id, request.user.id)
                 await asyncio.sleep(1)
-                await client.send_message(request.user.id, "**Hello {}!\nWelcome To {}\n\n__Powerd By : @VJ_Botz __**".format(request.user.mention, info.title))
+                try:
+                    await client.send_message(request.user.id, "**Hello {}!\nWelcome To {}\n\n__Powered By : @VJ_Botz __**".format(request.user.mention, info.title))
+                except:
+                    pass
             break
         await msg.edit("**Successfully accepted all join requests.**")
     except Exception as e:
@@ -69,7 +72,10 @@ async def approve_new(client, m):
             await db.add_user(m.from_user.id, m.from_user.first_name)
             await client.send_message(LOG_CHANNEL, LOG_TEXT.format(m.from_user.id, m.from_user.mention))
         await client.approve_chat_join_request(m.chat.id, m.from_user.id)
-        await client.send_message(m.from_user.id, "**Hello {}!\nWelcome To {}\n\n__Powerd By : @VJ_Botz __**".format(m.from_user.mention, m.chat.title))
+        try:
+            await client.send_message(m.from_user.id, "**Hello {}!\nWelcome To {}\n\n__Powered By : @VJ_Botz __**".format(m.from_user.mention, m.chat.title))
+        except:
+            pass
     except Exception as e:
         print(str(e))
         pass
