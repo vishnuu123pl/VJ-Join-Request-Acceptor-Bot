@@ -1,6 +1,6 @@
 # VJ Join Request Acceptor Bot
 
-**This Bot Can Accept All Old Pending Join Requests Of Channel And Group**
+**A Advance Join Request Accept Bot Which Can Accept Both All Pending Join Request And New Join Request With Login Feature.**
 
 **For New Join Request Use This Repo [Click Here](https://github.com/VJBots/VJ-Auto-Approval-Bot)**
 
