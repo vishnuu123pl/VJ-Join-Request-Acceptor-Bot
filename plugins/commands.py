@@ -1,5 +1,5 @@
 from pyrogram import Client, filters, enums
-from config import LOG_CHANNEL, API_ID, API_HASH
+from config import LOG_CHANNEL, API_ID, API_HASH, NEW_REQ_MODE
 from plugins.database import db
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -53,3 +53,17 @@ async def accept(client, message):
         await msg.edit("**Successfully Accepted All Join Requests.**")
     else:
         await msg.edit("**Process Cancelled Because Something Went Wrong.**")
+
+@Client.on_chat_join_request(filters.group | filters.channel)
+async def approve_new(client, m):
+    if NEW_REQ_MODE == False:
+        return 
+    try:
+        if not await db.is_user_exist(m.from_user.id):
+            await db.add_user(m.from_user.id, m.from_user.first_name)
+            await c.send_message(LOG_CHANNEL, LOG_TEXT.format(m.from_user.id, m.from_user.mention))
+        await client.approve_chat_join_request(m.chat.id, m.from_user.id)
+        await client.send_message(m.from_user.id, "**Hello {}!\nWelcome To {}\n\n__Powerd By : @VJ_Botz __**".format(m.from_user.mention, m.chat.title))
+    except Exception as e:
+        print(str(e))
+        pass
