@@ -40,17 +40,17 @@ async def accept(client, message):
         await acc.connect()
     except:
         return await show.edit("**Your Login Session Expired. So /logout First Then Login Again By - /login**")
-    await show.delete()
-    vj = await client.ask(message.chat.id, "**Now Forward A Message From Your Channel Or Group With Forward Tag\n\nMake Sure Your Logged In Account Is Admin In That Channel Or Group With Full Rights.**")
+    show = await show.edit("**Now Forward A Message From Your Channel Or Group With Forward Tag\n\nMake Sure Your Logged In Account Is Admin In That Channel Or Group With Full Rights.**")
+    vj = await client.listen(message.chat.id)
     if vj.forward_from_chat and not vj.forward_from_chat.type in [enums.ChatType.PRIVATE, enums.ChatType.BOT]:
         chat_id = vj.forward_from_chat.id
         try:
             info = await acc.get_chat(chat_id)
         except:
-            await vj.edit("**Error - Make Sure Your Logged In Account Is Admin In This Channel Or Group With Rights.**")
+            await show.edit("**Error - Make Sure Your Logged In Account Is Admin In This Channel Or Group With Rights.**")
     else:
         return await message.reply("**Message Not Forwarded From Channel Or Group.**")
-    msg = await vj.edit("**Accepting all join requests... Please wait until it's completed.**")
+    msg = await show.edit("**Accepting all join requests... Please wait until it's completed.**")
     try:
         while True:
             await acc.approve_all_chat_join_requests(chat_id)
